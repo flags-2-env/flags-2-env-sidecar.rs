@@ -1,0 +1,4 @@
+name = "flags-2-env-sidecar.rs"
+kind = "sidecar"
+version = "0.1.0"
+
