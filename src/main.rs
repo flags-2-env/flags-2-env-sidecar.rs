@@ -1,9 +1,11 @@
 #![forbid(unsafe_code)]
 
-use flags_2_env_sidecar::{config::SidecarConfig, runtime};
+use ores_otel_sidecar::{runtime, SidecarConfig, SidecarIdentity};
 
 fn main() {
-    let cfg = SidecarConfig::from_env();
+    let cfg = SidecarConfig::from_env(SidecarIdentity::new(
+        "flags-2-env-sidecar",
+        "FLAGS_2_ENV_SIDECAR_BIND",
+    ));
     runtime::run(&cfg);
 }
-

@@ -1,4 +1,28 @@
-name = "flags-2-env-sidecar.rs"
-kind = "sidecar"
+[package]
+org = "flags-2-env"
+name = "flags-2-env-sidecar"
 version = "0.1.0"
+description = "Sidecar for flags-2-env."
+license = "MIT"
+keywords = ["sidecar", "observability", "k8s"]
+language = "rust"
 
+[package.repository]
+vcs = "git"
+url = "https://github.com/flags-2-env/flags-2-env-sidecar.rs"
+
+[dependencies]
+"ores-otel/ores-otel-sidecar" = "^0.1.0"
+
+[build]
+command = "cargo build --release --locked --bin flags2env-platform-sidecar"
+outputs = ["target/release/flags2env-platform-sidecar"]
+
+[bin]
+flags2env-platform-sidecar = "target/release/flags2env-platform-sidecar"
+
+[install]
+adapter = "none"
+
+[scripts]
+test = "cargo test --all-targets --locked"
