@@ -1,11 +1,11 @@
 #![forbid(unsafe_code)]
 
+#[path = "../generated/rust/env.rs"]
+mod env;
+
 use ores_otel_sidecar::{runtime, SidecarConfig, SidecarIdentity};
 
 fn main() {
-    let cfg = SidecarConfig::from_env(SidecarIdentity::new(
-        "flags-2-env-sidecar",
-        "FLAGS_2_ENV_SIDECAR_BIND",
-    ));
+    let cfg = SidecarConfig::from_env(SidecarIdentity::new(env::SERVICE, env::BIND));
     runtime::run(&cfg);
 }
