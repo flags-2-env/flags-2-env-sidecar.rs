@@ -12,7 +12,7 @@ name = "flags2env-platform-sidecar"
 path = "src/main.rs"
 
 [dependencies]
-ores-otel-sidecar = { git = "https://github.com/ores-otel/ores-otel-sidecar.rs", rev = "dc67460d3fb033a82222d3639aeb03963c434e7a" }
+ores-otel-sidecar = { git = "https://github.com/ores-otel/ores-otel-sidecar.rs", rev = "fed785ad9a638e24d458e0f2acd390624e4e748d" }
 
 
 [lints.rust]
