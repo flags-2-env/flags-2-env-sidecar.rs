@@ -1,0 +1,1 @@
+The pull-request CI regenerates Cargo.lock only on the first migration pass so the exact dependency graph can be captured as an artifact. After the lockfile is committed, the workflow is tightened to use the committed lockfile without regeneration.
