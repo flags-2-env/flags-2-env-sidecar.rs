@@ -1,18 +1,31 @@
 # flags-2-env surface for `flags-2-env-sidecar`
-[identity]
-service = "flags-2-env-sidecar"
-type_name = "SidecarEnv"
-
 [help]
 url = "https://github.com/flags-2-env/flags-2-env-sidecar.rs"
 columns = ["options", "env", "type", "default", "description"]
 
+[env]
+files = []
+
 [parse]
 allow_unknown = false
+command_env = "FLAGS_2_ENV_SIDECAR_COMMAND"
 
 [flags.bind]
 env = "FLAGS_2_ENV_SIDECAR_BIND"
-long = "bind"
+aliases = ["bind"]
 type = "string"
 default = "127.0.0.1:9090"
 help = "HTTP listen address for /healthz /readyz /metrics."
+
+[commands.preflight]
+env = "FLAGS_2_ENV_SIDECAR_COMMAND_PREFLIGHT"
+help = "Validate the flags-2-env startup contract without opening a listener."
+
+[commands.probe]
+aliases = ["probe-healthz"]
+env = "FLAGS_2_ENV_SIDECAR_COMMAND_PROBE"
+help = "Run one bounded loopback GET against /healthz and exit."
+
+[commands.probe-readyz]
+env = "FLAGS_2_ENV_SIDECAR_COMMAND_PROBE_READYZ"
+help = "Run one bounded loopback GET against /readyz and exit."
