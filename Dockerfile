@@ -31,9 +31,11 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry,id=cargo-registry,sharin
     && cp "target/release/flags2env-platform-sidecar" "/usr/local/bin/flags2env-platform-sidecar"
 
 FROM gcr.io/distroless/cc-debian12:nonroot
-# Binary lives at /<bin> so kubelet exec ["/flags2env-platform-sidecar", "probe"] matches the
-# ores-otel sidecar contract (no curl, no /usr/local/bin prefix required).
+WORKDIR /
+# The binary and its repository-owned flags contract travel together so
+# distroless/kubelet exec probes use the same audited argv/env authority as CI.
 COPY --from=build --chown=65532:65532 "/usr/local/bin/flags2env-platform-sidecar" "/flags2env-platform-sidecar"
+COPY --chown=65532:65532 ".cli-flags.toml" "/.cli-flags.toml"
 ENV FLAGS_2_ENV_SIDECAR_BIND=127.0.0.1:9090 \
     ORES_OTEL_SIDECAR_BIND=127.0.0.1:9090 \
     OTEL_SERVICE_NAME=flags2env-platform-sidecar
